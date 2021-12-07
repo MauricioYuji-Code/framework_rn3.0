@@ -1,77 +1,57 @@
 package core;
+
 import java.io.Serializable;
 
 public class Connection implements Serializable {
 
     protected Neuron fromNeuron;
     protected Neuron toNeuron;
-    protected Weight weight;
+    protected double weightValue;
 
-    public Connection(Neuron fromNeuron, Neuron toNeuron) {
-
-        if (fromNeuron == null) {
-            System.out.println("From neuron in connection cant be null !");
-        } else {
-            this.fromNeuron = fromNeuron;
-        }
-
-        if (toNeuron == null) {
-            System.out.println("To neuron in connection cant be null!");
-        } else {
-            this.toNeuron = toNeuron;
-        }
-
-        this.weight = new Weight();
-    }
-
-
-    public Connection(Neuron fromNeuron, Neuron toNeuron, Weight weight) {
-        this(fromNeuron, toNeuron);
-
-        if (weight == null) {
-            System.out.println("Connection Weight cant be null!");
-        } else {
-            this.weight = weight;
-        }
+    public Connection() {
 
     }
 
-
-    public Connection(Neuron fromNeuron, Neuron toNeuron, double weightVal) {
-        this(fromNeuron, toNeuron, new Weight(weightVal));
+    public Connection(Neuron fromNeuron, Neuron toNeuron, double weightValue) {
+        this.fromNeuron = fromNeuron;
+        this.toNeuron = toNeuron;
+        this.weightValue = weightValue;
     }
 
-    public final Weight getWeight() {
-        return this.weight;
+    public Connection(double weightValue) {
+        this.weightValue = weightValue;
     }
 
-
-    public final void setWeight(Weight weight) {
-        if (weight == null) {
-            System.out.println("Connection Weight cant be null!");
-        } else {
-            this.weight = weight;
-        }
+    public void propagate() {
+        toNeuron.addValue(fromNeuron.getActivateValue() * weightValue);
     }
 
+    /******Getters e Setters*****/
 
     public double getInput() {
         return fromNeuron.getOutput();
     }
 
-
-    public final double getWeightedInput() {
-        return fromNeuron.getOutput() * weight.value;
-    }
-
-
     public final Neuron getFromNeuron() {
         return fromNeuron;
     }
 
-
     public final Neuron getToNeuron() {
         return toNeuron;
+    }
+
+    /**
+     * Define um valor de peso
+     */
+    public final void setWeightValue(double value) {
+        this.weightValue = value;
+    }
+
+    /**
+     * Retorna o valor do peso
+     */
+    public final double getWeightValue() {
+        return this.weightValue;
     }
 
 

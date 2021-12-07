@@ -30,17 +30,5 @@ public class Weight implements Serializable, Cloneable {
         this.value = value;
     }
 
-    /**
-     * Define um valor de peso
-     */
-    public final void setValue(double value) {
-        this.value = value;
-    }
 
-    /**
-     * Retorna o valor do peso
-     */
-    public final double getValue() {
-        return this.value;
-    }
 }

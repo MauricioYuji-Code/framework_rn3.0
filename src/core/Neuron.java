@@ -1,5 +1,8 @@
 package core;
 
+import Help.ActivationFunction;
+import Help.Sigmoid;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,10 +10,6 @@ import java.util.List;
 
 public class Neuron implements Serializable, Cloneable {
 
-    /**
-     * Parent layer do neuron
-     */
-    protected Layer parentLayer;
     /**
      * Coleção de Connections de entrada do Neuron (conexões para este Neuron)
      */
@@ -24,7 +23,7 @@ public class Neuron implements Serializable, Cloneable {
     /**
      * Representa a entrada total para este neurônio recebida da função de entrada. (Somatória)
      */
-    protected double totalInput = 0;
+    protected double value = 0;
 
     /**
      * Neuron output
@@ -32,48 +31,25 @@ public class Neuron implements Serializable, Cloneable {
     protected double output = 0;
 
     /**
-     * Erro (delta) para este neuron
-     */
-    protected transient double delta = 0;
-
-    /**
      * Neuron's label
      */
     private String label;
+
+    protected ActivationFunction activationFunction;
 
     /**
      * Construtor neuron inicializando as listas de conections de entrada e de saida
      */
     public Neuron() {
-        this.inputConnections = new ArrayList<>();
-        this.outConnections = new ArrayList<>();
+        this.inputConnections = new ArrayList<Connection>();
+        this.outConnections = new ArrayList<Connection>();
+        this.activationFunction = new Sigmoid();
     }
 
-    /**
-     * Define a entrada do neurônio
-     *
-     * @param input valor de entrada para definir
-     */
-    public void setInput(double input) {
-        this.totalInput = input;
-    }
-
-    /**
-     * Retorna a entrada somatória
-     *
-     * @return somatória input
-     */
-    public double getNetInput() {
-        return this.totalInput;
-    }
-
-    /**
-     * Retorna a saída do neurônio
-     *
-     * @return saída do neurônio
-     */
-    public double getOutput() {
-        return this.output;
+    public Neuron(ActivationFunction activationFunction) {
+        this.inputConnections = new ArrayList<Connection>();
+        this.outConnections = new ArrayList<Connection>();
+        this.activationFunction = activationFunction;
     }
 
     /**
@@ -148,10 +124,10 @@ public class Neuron implements Serializable, Cloneable {
      * @param weightVal  valor peso da connection
      */
 
-    public void addInputConnection(Neuron fromNeuron, double weightVal) {
-        Connection connection = new Connection(fromNeuron, this, weightVal); //Alinhar
-        this.addInputConnection(connection);
-    }
+//    public void addInputConnection(Neuron fromNeuron, double weightVal) {
+//        Connection connection = new Connection(fromNeuron, this, weightVal); //Alinhar
+//        this.addInputConnection(connection);
+//    }
 
 
     /**
@@ -164,12 +140,12 @@ public class Neuron implements Serializable, Cloneable {
         // First do some checks
         // check whether connection is  null
         if (connection == null) {
-            throw new IllegalArgumentException("Attempt to add null connection to neuron!");
+            System.out.println("Nulo");
         }
 
         // make sure that connection instance is pointing to this neuron
         if (connection.getFromNeuron() != this) {
-            throw new IllegalArgumentException("Cannot add output connection - bad fromNeuron specified!");
+            System.out.println("Nulo");
         }
 
         // if this neuron is already connected to neuron specified in connection do nothing
@@ -179,19 +155,6 @@ public class Neuron implements Serializable, Cloneable {
 
         // Now we can safely add new connection
         this.outConnections.add(connection);
-    }
-
-    /**
-     * Retorna o vetor de pesos das conexões de entrada
-     *
-     * @return pondera vetor de conexões de entrada
-     */
-    public Weight[] getWeights() {
-        Weight[] weights = new Weight[inputConnections.size()];
-        for (int i = 0; i < inputConnections.size(); i++) {
-            weights[i] = inputConnections.get(i).getWeight();
-        }
-        return weights;
     }
 
     /**
@@ -212,23 +175,37 @@ public class Neuron implements Serializable, Cloneable {
         return Collections.unmodifiableList(inputConnections);
     }
 
-    /**
-     * Etiqueta de retorno para este neurônio
-     * <p>
-     * etiqueta @return para este neurônio
-     */
-    public String getLabel() {
-        return label;
+    /******Getters e Setters*****/
+
+    public double getActivateValue() {
+        return activationFunction.calculate(value);
     }
 
     /**
-     * Define o rótulo para este neurônio
+     * Define a entrada do neuronio, realizando a somatoria
      *
-     * @param label neuron label para definir
+     * @param input valor de entrada para definir
      */
-    public void setLabel(String label) {
-        this.label = label;
+    public void addValue(double value) {
+        this.value += value;
     }
 
+    /**
+     * Retorna a entrada
+     *
+     * @return input
+     */
+    public double getValue() {
+        return this.value;
+    }
+
+    /**
+     * Retorna a saída do neurônio
+     *
+     * @return saída do neurônio
+     */
+    public double getOutput() {
+        return this.output;
+    }
 }
 
