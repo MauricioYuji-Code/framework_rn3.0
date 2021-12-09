@@ -18,6 +18,11 @@ public class Connection implements Serializable {
         this.weightValue = weightValue;
     }
 
+    public Connection(Neuron fromNeuron, Neuron toNeuron) {
+        this.fromNeuron = fromNeuron;
+        this.toNeuron = toNeuron;
+    }
+
     public Connection(double weightValue) {
         this.weightValue = weightValue;
     }

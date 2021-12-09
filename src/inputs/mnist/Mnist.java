@@ -1,9 +1,5 @@
-package mnist;
+package inputs.mnist;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -23,10 +19,10 @@ public class Mnist {
         int linhas = dataInputStream.readInt();
         int colunas = dataInputStream.readInt();
 
-        System.out.println("Número mágico: " + numeroMagico);
-        System.out.println("Número de imagens: " + numeroDeImagens);
-        System.out.println("Linhas: " + linhas);
-        System.out.println("Colunas: " + colunas);
+//        System.out.println("Número mágico: " + numeroMagico);
+//        System.out.println("Número de imagens: " + numeroDeImagens);
+//        System.out.println("Linhas: " + linhas);
+//        System.out.println("Colunas: " + colunas);
 
         //TRAINING SET LABEL FILE (train-labels-idx1-ubyte):
         DataInputStream labelInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(filePathLabel)));

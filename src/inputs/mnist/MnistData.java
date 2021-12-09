@@ -1,4 +1,4 @@
-package mnist;
+package inputs.mnist;
 
 public class MnistData {
 

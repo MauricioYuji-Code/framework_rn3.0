@@ -1,4 +1,4 @@
-package mnist;
+package inputs.mnist;
 
 import java.io.IOException;
 

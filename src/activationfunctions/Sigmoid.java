@@ -1,4 +1,6 @@
-package Help;
+package activationfunctions;
+
+import interfac.ActivationFunction;
 
 public class Sigmoid implements ActivationFunction {
     @Override

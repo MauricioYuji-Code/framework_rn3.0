@@ -1,7 +1,7 @@
 package core;
 
-import Help.ActivationFunction;
-import Help.Sigmoid;
+import interfac.ActivationFunction;
+import activationfunctions.Sigmoid;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,12 +13,12 @@ public class Neuron implements Serializable, Cloneable {
     /**
      * Coleção de Connections de entrada do Neuron (conexões para este Neuron)
      */
-    protected List<Connection> inputConnections;
+    protected ArrayList<Connection> inputConnections;
     /**
      * Coleção de Connections de saída do Neuron (conexões deste para outro
      * Neuron)
      */
-    protected List<Connection> outConnections;
+    protected ArrayList<Connection> outConnections;
 
     /**
      * Representa a entrada total para este neurônio recebida da função de entrada. (Somatória)
@@ -90,44 +90,27 @@ public class Neuron implements Serializable, Cloneable {
 
 
     /**
+     * Adiciona conexão de entrada de determinado neurônio
+     *
+     * @param fromNeuron neuron para conectar a partir do neuronio selecionado
+     */
+
+    public void addInputConnection(Neuron fromNeuron) {
+        Connection connection = new Connection(fromNeuron, this);
+        this.addInputConnection(connection);
+    }
+
+    /**
      * Adiciona a conexão de entrada especificada
      *
      * @param connection input connection para adicionar
      */
 
     public void addInputConnection(Connection connection) {
-        // check whether connection is  null
-        if (connection == null) {
-            System.out.println("Attempt to add null connection to neuron!");
-        }
-
-        // make sure that connection instance is pointing to this neuron
-        if (connection.getToNeuron() != this) {
-            System.out.println("Cannot add input connection - bad toNeuron specified!");
-        }
-
-        // if it already has connection from same neuron do nothing
-        if (this.hasInputConnectionFrom(connection.getFromNeuron())) {
-            return;
-        }
-
         this.inputConnections.add(connection);
-
         Neuron fromNeuron = connection.getFromNeuron();
         fromNeuron.addOutputConnection(connection);
     }
-
-    /**
-     * Adiciona conexão de entrada com o peso determinado, de determinado neurônio
-     *
-     * @param fromNeuron neuron para conectar a partir do neuronio selecionado
-     * @param weightVal  valor peso da connection
-     */
-
-//    public void addInputConnection(Neuron fromNeuron, double weightVal) {
-//        Connection connection = new Connection(fromNeuron, this, weightVal); //Alinhar
-//        this.addInputConnection(connection);
-//    }
 
 
     /**
@@ -137,23 +120,6 @@ public class Neuron implements Serializable, Cloneable {
      */
 
     protected void addOutputConnection(Connection connection) {
-        // First do some checks
-        // check whether connection is  null
-        if (connection == null) {
-            System.out.println("Nulo");
-        }
-
-        // make sure that connection instance is pointing to this neuron
-        if (connection.getFromNeuron() != this) {
-            System.out.println("Nulo");
-        }
-
-        // if this neuron is already connected to neuron specified in connection do nothing
-        if (this.hasOutputConnectionTo(connection.getToNeuron())) {
-            return;
-        }
-
-        // Now we can safely add new connection
         this.outConnections.add(connection);
     }
 
@@ -184,7 +150,7 @@ public class Neuron implements Serializable, Cloneable {
     /**
      * Define a entrada do neuronio, realizando a somatoria
      *
-     * @param input valor de entrada para definir
+     * @param value valor de entrada para definir
      */
     public void addValue(double value) {
         this.value += value;
@@ -206,6 +172,22 @@ public class Neuron implements Serializable, Cloneable {
      */
     public double getOutput() {
         return this.output;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setActivateValue(ActivationFunction activationFunction) {
+        this.activationFunction = activationFunction;
+    }
+
+    public ActivationFunction getActivationFunction() {
+        return activationFunction;
     }
 }
 
