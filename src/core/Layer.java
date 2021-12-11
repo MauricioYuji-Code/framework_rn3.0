@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import activationfunctions.Sigmoid;
-import enu.TypeLayer;
 import interfac.ActivationFunction;
 
 public class Layer implements Serializable, Cloneable {
@@ -19,7 +18,6 @@ public class Layer implements Serializable, Cloneable {
      * Coleção de neurônios nesta camada
      */
     protected ArrayList<Neuron> neurons;
-
 
 //    private ActivationFunction activationFunction;
 

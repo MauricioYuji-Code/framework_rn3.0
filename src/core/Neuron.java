@@ -13,6 +13,7 @@ public class Neuron implements Serializable, Cloneable {
     /**
      * Coleção de Connections de entrada do Neuron (conexões para este Neuron)
      */
+
     protected ArrayList<Connection> inputConnections;
     /**
      * Coleção de Connections de saída do Neuron (conexões deste para outro

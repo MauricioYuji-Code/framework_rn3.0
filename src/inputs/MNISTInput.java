@@ -1,40 +1,51 @@
 package inputs;
 
 import core.Layer;
-import inputs.mnist.Mnist;
-import inputs.mnist.MnistData;
-import interfac.Input;
+import test.Input;
+import test.InputSamples;
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MNISTInput extends Layer implements Input {
+public class MNISTInputSamples extends InputSamples {
 
     private int min = 0;
     private int max = 255;
-    private int[] data;
-    private MnistData[] mnistData;
-    private Layer firstLayer;
+    private int index;
+    private int numberImages;
+    private int rows;
+    private int columns;
+    private String filePath;
 
-    public MNISTInput() {
-        firstLayer = new Layer(784);
-    }
 
-    public MNISTInput(String filePathTrain, String filePathLabel) throws IOException {
-        mnistData = new Mnist().readData(filePathTrain, filePathLabel);
-    }
+//    private double[] convert() {
+//        return this.getNormalizedInput();
+//    }
+//
+//    @Override
+//    public void distribute() {
+//        this.inputLayer = new Layer(rows * columns);
+//        for (int i = 0; i < (rows * columns); i++) {
+//            inputLayer.getNeurons().get(i).setOutput(convert()[i]);
+//        }
+//    }
 
-    @Override
-    public double[] getInput(ArrayList<Number> in, double max, double min) {
-        double[] result = new double[in.size()];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = in.get(i).doubleValue() / (double) (max - min);
-//            System.out.println(result[i]);
+    public void readData() throws IOException {
+        int pos = 0;
+        DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));
+        int magicNumber = dataInputStream.readInt();
+        numberImages = dataInputStream.readInt();
+        rows = dataInputStream.readInt();
+        columns = dataInputStream.readInt();
+        for (int j = pos; j < (rows * columns); j++) {
+//            values.add((double) dataInputStream.readUnsignedByte());
+//            System.out.print(values.get(j));
+//            if (j % 28 == 0)
+//                System.out.println();
         }
-        return result;
     }
 
-    public MnistData[] getMnistData() {
-        return mnistData;
-    }
 }

@@ -1,5 +1,8 @@
 package core;
 
+import test.Input;
+import test.Output;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,14 +13,21 @@ public class NeuralNetwork implements Serializable {
 
     private ArrayList<Layer> layers;
 
+    private ArrayList<ArrayList<Double>> samples;
+
     private String label;
+
+    private Input input;
+
+    private Output output;
+
 
     public NeuralNetwork() {
         this.layers = new ArrayList<>();
     }
 
     /**
-     * Adicionar calamda
+     * Adicionar camada
      *
      * @param layer camada adicionada
      */
@@ -69,11 +79,29 @@ public class NeuralNetwork implements Serializable {
         return layers.size();
     }
 
-    public void setInputValues(double... input) {
-        for (int i = 0; i < input.length; i++) {
-            System.out.println(input[i]);
+    /**
+     * recebe a camada de entrada
+     */
+    public void attachInput(Input input) throws Exception {
+        if (this.input == null) {
+            this.input = input;
+            addLayer(0, input.getLayer());
+        } else {
+            throw new Exception("Ops! Já temos a camada input na rede");
         }
     }
+
+    /**
+     * recebe a camada de saída
+     */
+//    public void attachOutput(Output output) throws Exception {
+//        if (this.output == null) {
+//            this.output = output;
+//            addLayer(0, output.getLayer());
+//        } else {
+//            throw new Exception("Ops! Já temos a camada input na rede");
+//        }
+//    }
 
     /**
      * Cria uma instancia de connection weight com valor aleatorio de peso dentro de [-1 .. 1]
