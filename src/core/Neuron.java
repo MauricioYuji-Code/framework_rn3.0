@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Neuron implements Serializable, Cloneable {
 
@@ -15,6 +16,7 @@ public class Neuron implements Serializable, Cloneable {
      */
 
     protected ArrayList<Connection> inputConnections;
+
     /**
      * Coleção de Connections de saída do Neuron (conexões deste para outro
      * Neuron)
@@ -51,6 +53,21 @@ public class Neuron implements Serializable, Cloneable {
         this.inputConnections = new ArrayList<Connection>();
         this.outConnections = new ArrayList<Connection>();
         this.activationFunction = activationFunction;
+    }
+
+    /**
+     * deleta todas as conexoes de saida do neuronio
+     */
+
+    public void clearConnections() {
+        this.getOutConnections().clear();
+    }
+
+    public void radomizeOutputWeight() {
+        ThreadLocalRandom tlr = ThreadLocalRandom.current();
+        for (int i = 0; i < this.getOutConnections().size(); i++) {
+            this.getOutConnections().get(i).setWeightValue(tlr.nextDouble(-1, 1));
+        }
     }
 
     /**
@@ -93,11 +110,11 @@ public class Neuron implements Serializable, Cloneable {
     /**
      * Adiciona conexão de entrada de determinado neurônio
      *
-     * @param fromNeuron neuron para conectar a partir do neuronio selecionado
+     * @param toNeuron neuron para conectar a partir do neuronio selecionado
      */
 
-    public void addInputConnection(Neuron fromNeuron) {
-        Connection connection = new Connection(fromNeuron, this);
+    public void addOutputConnection(Neuron toNeuron) {
+        Connection connection = new Connection(this, toNeuron);
         this.addInputConnection(connection);
     }
 
@@ -189,6 +206,14 @@ public class Neuron implements Serializable, Cloneable {
 
     public ActivationFunction getActivationFunction() {
         return activationFunction;
+    }
+
+    public ArrayList<Connection> getOutConnections() {
+        return outConnections;
+    }
+
+    public void setOutConnections(ArrayList<Connection> outConnections) {
+        this.outConnections = outConnections;
     }
 }
 

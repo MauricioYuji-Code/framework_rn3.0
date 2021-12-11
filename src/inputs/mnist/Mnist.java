@@ -5,11 +5,10 @@ import java.util.ArrayList;
 
 public class Mnist {
 
-//    public Mnist() {
-//
-//    }
+    private ArrayList<ArrayList<Double>> mnistData = new ArrayList<>();
+    private ArrayList<Double> labels = new ArrayList<>();
 
-    public  MnistData[] readData(String filePathTrain, String filePathLabel) throws IOException {
+    public MnistData[] readData(String filePathTrain, String filePathLabel) throws IOException {
         //TREINAMENTO DEFINIR ARQUIVO DE IMAGEM (train-images-idx3-ubyte):
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(filePathTrain)));
 //        DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream("data/test.wav")));
@@ -49,47 +48,8 @@ public class Mnist {
         return data;
     }
 
-//    public  MnistData[] readData(String filePath) throws IOException {
-//        //TREINAMENTO DEFINIR ARQUIVO DE IMAGEM (train-images-idx3-ubyte):
-//        DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(filePathTrain)));
-////        DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream("data/test.wav")));
-//        //Byte mais significativo
-//        int numeroMagico = dataInputStream.readInt();
-//        int numeroDeImagens = dataInputStream.readInt();
-//        int linhas = dataInputStream.readInt();
-//        int colunas = dataInputStream.readInt();
-//
-////        System.out.println("Número mágico: " + numeroMagico);
-////        System.out.println("Número de imagens: " + numeroDeImagens);
-////        System.out.println("Linhas: " + linhas);
-////        System.out.println("Colunas: " + colunas);
-//
-//        //TRAINING SET LABEL FILE (train-labels-idx1-ubyte):
-//        DataInputStream labelInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(filePathLabel)));
-//        int digito = labelInputStream.readInt();
-//        int numeroDeDigitos = labelInputStream.readInt();
-//
-//        System.out.println(digito);
-//        System.out.println(numeroDeDigitos);
-//        MnistData[] data = new MnistData[numeroDeImagens];
-//        //Formato vetor
-//        for (int i = 0; i < numeroDeImagens; i++) {
-//            MnistData mnistData = new MnistData(linhas * colunas);
-//            mnistData.setLabel(labelInputStream.readUnsignedByte());
-////            System.out.println(mnistData.getLabel());
-//            for (int j = 0; j < (linhas * colunas); j++) {
-////                System.out.println(j);
-//                mnistData.setValueOfArray(j, dataInputStream.readUnsignedByte());
-//            }
-//            data[i] = mnistData;
-//        }
-//
-//        dataInputStream.close();
-//        labelInputStream.close();
-//        return data;
-//    }
+    public ArrayList<ArrayList<Double>> getAllMnistData() throws IOException {
 
-    public static ArrayList generateDataMNIST() throws IOException {
         //TREINAMENTO DEFINIR ARQUIVO DE IMAGEM (train-images-idx3-ubyte):
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream("data/train-images.idx3-ubyte")));
 //        DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream("data/test.wav")));
@@ -108,28 +68,20 @@ public class Mnist {
         DataInputStream labelInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream("data/train-labels.idx1-ubyte")));
         int digito = labelInputStream.readInt();
         int numeroDeDigitos = labelInputStream.readInt();
-
-        System.out.println(digito);
-        System.out.println(numeroDeDigitos);
-
-        //Formato bit map
-//        int[][] bitMap = new int[linhas][colunas];
-//        for (int r = 0; r < linhas; r++) {
-//            for (int c = 0; c < colunas; c++) {
-//                bitMap[r][c] = dataInputStream.readByte();
-//                System.out.print(bitMap[r][c] + " ");
-//            }
-//            System.out.println(" ");
-//        }
-        //Formato vetor
-        ArrayList<Number> data = new ArrayList<>();
+        for (int i = 0; i < numeroDeImagens; i++) {
+            ArrayList<Double> individualData = new ArrayList<>();
+            labels.add((double) labelInputStream.readUnsignedByte());
             for (int j = 0; j < (linhas * colunas); j++) {
-                data.add(dataInputStream.readUnsignedByte());
+                individualData.add((double) dataInputStream.readUnsignedByte());
+            }
+            mnistData.add(i, individualData);
         }
-//        MNISTInput mnistInput = new MNISTInput();
-//        mnistInput.getInput(data, 255, 0);
         dataInputStream.close();
         labelInputStream.close();
-        return data;
+        return mnistData;
+    }
+
+    public ArrayList<Double> getLabels() {
+        return labels;
     }
 }

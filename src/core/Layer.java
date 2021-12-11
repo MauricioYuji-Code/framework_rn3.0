@@ -43,6 +43,18 @@ public class Layer implements Serializable, Cloneable {
         populateLayer(qtdNeurons, activationFunction);
     }
 
+    public void clearAllConnections() {
+        for (Neuron n : neurons) {
+            n.clearConnections();
+        }
+    }
+
+    public void randomizeLayerWeights() {
+        for (int i = 0; i < this.getNeuronsCount(); i++) {
+            this.getNeurons().get(i).radomizeOutputWeight();
+        }
+    }
+
 
     public void populateLayer(int neuronsCount, ActivationFunction activationFunction) {
         for (int n = 1; n <= neuronsCount; n++)

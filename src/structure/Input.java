@@ -1,4 +1,4 @@
-package test;
+package structure;
 
 import core.Layer;
 
@@ -14,7 +14,6 @@ public class Input {
     }
 
     public Input() {
-
     }
 
     public double[] getNormalizedInput(ArrayList<Number> in, double max, double min) {
@@ -33,8 +32,28 @@ public class Input {
         return result;
     }
 
+    public double[] getNormalizedInput(ArrayList<Double> values) {
+        double[] result = new double[values.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = (values.get(i).doubleValue() - getMinValue()) / (double) (getMaxValue() - getMinValue());
+        }
+        return result;
+    }
+
     //Todo fazer o metodo para converter o arr de double em layer normalizada
     //Se a layer estiver vazia a conversão cria novos neuronios passando valores normalizados, caso ao contrario modifica os valores ja criados na layer -> neuronios
+
+    public void convertToLayer() {
+        if (inputLayer.getNeuronsCount() != 0)
+            this.inputLayer = new Layer(values.size());
+        for (int i = 0; i < inputLayer.getNeuronsCount(); i++) {
+            inputLayer.getNeurons().get(i).setOutput(getNormalizedInput()[i]);
+        }
+    }
+
+    /**
+     * Gettes e Setters
+     **/
 
     public Double getMinValue() {
         Double minValue = Double.MAX_VALUE;
@@ -60,7 +79,11 @@ public class Input {
         this.inputLayer = inputLayer;
     }
 
-    public void distribute() {
-        //Todo ???
+    public ArrayList<Double> getValues() {
+        return values;
+    }
+
+    public void setValues(ArrayList<Double> values) {
+        this.values = values;
     }
 }

@@ -1,11 +1,11 @@
-package test;
+package structure;
 
 import java.util.ArrayList;
 
 public class InputSamples {
 
     private ArrayList<ArrayList<Double>> samples;
-    private int index;
+    private int index = 0;
     private Input input;
     private double min;
     private double max;
@@ -19,6 +19,12 @@ public class InputSamples {
     public ArrayList<Double> nextSample() {
         if (index < samples.size())
             return samples.get(index++);
+        return null;
+    }
+
+    public ArrayList<Double> getSample(int i) {
+        if (!samples.get(i).isEmpty())
+            return samples.get(i);
         return null;
     }
 
@@ -48,12 +54,47 @@ public class InputSamples {
         return max;
     }
 
+    /**
+     * Gettes e Setters
+     **/
     public Input getInput() {
         return input;
     }
 
     public void setInput(Input input) {
         this.input = input;
+    }
+
+    public ArrayList<ArrayList<Double>> getSamples() {
+        return samples;
+    }
+
+    public void setSamples(ArrayList<ArrayList<Double>> samples) {
+        this.samples = samples;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public double getMin() {
+        return min;
+    }
+
+    public void setMin(double min) {
+        this.min = min;
+    }
+
+    public double getMax() {
+        return max;
+    }
+
+    public void setMax(double max) {
+        this.max = max;
     }
 
 }

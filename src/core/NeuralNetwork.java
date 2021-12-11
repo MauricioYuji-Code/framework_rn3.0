@@ -1,7 +1,7 @@
 package core;
 
-import test.Input;
-import test.Output;
+import structure.Input;
+import structure.Output;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -20,7 +20,6 @@ public class NeuralNetwork implements Serializable {
     private Input input;
 
     private Output output;
-
 
     public NeuralNetwork() {
         this.layers = new ArrayList<>();
@@ -41,8 +40,18 @@ public class NeuralNetwork implements Serializable {
      * @param index indice
      * @param layer camada adicionada
      */
-    public void addLayer(int index, Layer layer) {
+    public boolean addLayer(int index, Layer layer) {
+        if (layer.getNeuronsCount() == 0 || index == 0)
+            return false;
+        if (!layers.get(index + 1).equals(null)) {
+            layers.get(index - 1).clearAllConnections();
+            connect(layers.get(index - 1), layer);
+            connect(layer, layers.get(index + 1));
+        } else {
+            connect(layer, layers.get(index + 1));
+        }
         layers.add(index, layer);
+        return true;
     }
 
     /**
@@ -59,9 +68,32 @@ public class NeuralNetwork implements Serializable {
      *
      * @param index indice
      */
-    public void removeLayerAt(int index) {
+    //Todo verificar quando tiver input
+    //Todo verificar quando tiver output
+    //Todo verificar quando tiver apenas uma layer
+    public boolean removeLayerAt(int index) {
+        if (layers.get(index).equals(null))
+            return false;
+        if (index == 0 || index == layers.size() - 1)
+            return false;
+        Layer l1 = layers.get(index - 1);
+        Layer l2 = layers.get(index + 1);
+        l1.clearAllConnections();
+        connect(l1, l2);
+        layers.get(index).removeAllNeurons();
         layers.remove(index);
+        return true;
     }
+
+    private void connect(Layer l1, Layer l2) {
+        for (int i = 0; i < l1.getNeuronsCount(); i++) {
+            for (int j = 0; j < l2.getNeuronsCount(); j++) {
+                l1.getNeurons().get(i).addOutputConnection(l2.getNeurons().get(j));
+            }
+        }
+        this.randomizeWeight();
+    }
+
 
     /**
      * retorna posicao da camada
@@ -91,6 +123,26 @@ public class NeuralNetwork implements Serializable {
         }
     }
 
+    public String showInfo(boolean verbose) {
+        StringBuilder info = new StringBuilder();
+        info.append("Neural Network Info: \n");
+        info.append("Layers: " + layers.size() + "\n");
+        info.append("Input attached: " + (input != null) + "\n");
+        info.append("Output attached: " + (output != null) + "\n");
+        for (int i = 0; i < layers.size(); i++) {
+            info.append("Layer index: " + i + " Number of neurons: " + layers.get(i).getNeuronsCount() + "\n");
+            info.append("Layer index: " + i + " Activation Function: " + layers.get(i).getActivationFunction() + "\n");
+            if (verbose) {
+                for (int j = 0; j < layers.get(i).getNeuronsCount(); j++) {
+                    Neuron n = layers.get(i).getNeurons().get(j);
+                    info.append("Neuron: " + j + " Value:" + n.getValue() + "\n");
+                    info.append("Neuron: " + j + " Activated Value:" + n.getActivateValue() + "\n");
+                }
+            }
+        }
+        return info.toString();
+    }
+
     /**
      * recebe a camada de saída
      */
@@ -106,17 +158,9 @@ public class NeuralNetwork implements Serializable {
     /**
      * Cria uma instancia de connection weight com valor aleatorio de peso dentro de [-1 .. 1]
      */
-    //Todo Percorrer camadas, chegar até as suas conexões e randomizar seus pesos (Ainda a avaliar)
     public void randomizeWeight() {
-        ThreadLocalRandom tlr = ThreadLocalRandom.current();
         for (Layer l : layers) {
-            for (int i = 0; i < l.getNeuronsCount(); i++) {
-//                System.out.println("Numero de neuronios: " + l.getNeuronsCount() + " na camada " + l.getLabel());
-                for (int j = 0; j < l.getNeurons().get(i).getInputConnections().size(); j++) {
-//                    System.out.println("Neuronio: " + l.getLabel() + " Numero de conexões: " + j);
-                    l.neurons.get(i).getInputConnections().get(j).setWeightValue(tlr.nextDouble(-1, 1));
-                }
-            }
+            l.randomizeLayerWeights();
         }
     }
 
