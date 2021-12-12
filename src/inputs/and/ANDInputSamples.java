@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ANDInputSamples extends InputSamples {
 
     public ANDInputSamples(ArrayList<ArrayList<Double>> samples) {
-        super(samples);
+        super(samples, true);
     }
 
 }

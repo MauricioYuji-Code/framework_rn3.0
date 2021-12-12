@@ -16,6 +16,11 @@ public class InputSamples {
         input = new Input(samples.get(0));
     }
 
+    public InputSamples(ArrayList<ArrayList<Double>> samples, boolean flag) {
+        this.samples = samples;
+        input = new Input(samples.get(0), flag);
+    }
+
     //Deixar void?
 //    public ArrayList<Double> nextSample() {
 //        if (index < samples.size())
@@ -25,7 +30,8 @@ public class InputSamples {
 
     public void nextSample() {
         if (index < samples.size())
-            input.setValues(samples.get(index++));
+            input = new Input(samples.get(index++));
+//            input.setValues(samples.get(index++));
     }
 
     //Deixar void?
@@ -37,7 +43,8 @@ public class InputSamples {
 
     public void getSample(int i) {
         if (!samples.get(i).isEmpty())
-            input.setValues(samples.get(i));
+            input = new Input(samples.get(i));
+//            input.setValues(samples.get(i));
     }
 
     public boolean next() {

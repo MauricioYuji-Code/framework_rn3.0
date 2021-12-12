@@ -2,7 +2,7 @@ package activationfunctions;
 
 import interfac.ActivationFunction;
 
-class Step implements ActivationFunction {
+public class Step implements ActivationFunction {
     @Override
     public double calculate(double value) {
         if (value >= 0) {

@@ -1,5 +1,6 @@
 package core;
 
+import learning.Training;
 import structure.Input;
 import structure.Output;
 
@@ -20,6 +21,8 @@ public class NeuralNetwork implements Serializable {
     private Input input;
 
     private Output output;
+
+    private Training training = new Training();
 
     public NeuralNetwork() {
         this.layers = new ArrayList<>();

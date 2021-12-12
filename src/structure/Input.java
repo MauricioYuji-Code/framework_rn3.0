@@ -14,8 +14,11 @@ public class Input {
         convertToLayer();
     }
 
-    public Input() {
+    public Input(ArrayList<Double> values, boolean flag) {
+        this.values = values;
+        convertSimpleToLayer();
     }
+
 
     public double[] getNormalizedInput(ArrayList<Number> in, double max, double min) {
         double[] result = new double[in.size()];
@@ -42,8 +45,7 @@ public class Input {
         return result;
     }
 
-    //Todo fazer o metodo para converter o arr de double em layer normalizada
-    //Se a layer estiver vazia a conversão cria novos neuronios passando valores normalizados, caso ao contrario modifica os valores ja criados na layer -> neuronios
+    //Com a normalização
 
     public void convertToLayer() {
         if (inputLayer.getNeuronsCount() == 0)
@@ -51,6 +53,17 @@ public class Input {
         double[] store = getNormalizedInput();
         for (int i = 0; i < inputLayer.getNeuronsCount(); i++) {
             inputLayer.getNeurons().get(i).setOutput(store[i]);
+        }
+    }
+
+    //Sem a normalização
+
+    private void convertSimpleToLayer() {
+        if (inputLayer.getNeuronsCount() == 0)
+            this.inputLayer = new Layer(values.size());
+        for (int i = 0; i < inputLayer.getNeuronsCount(); i++) {
+            System.out.println(values.get(i));
+            inputLayer.getNeurons().get(i).setOutput(values.get(i));
         }
     }
 

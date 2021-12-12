@@ -1,5 +1,6 @@
 package main;
 
+import activationfunctions.*;
 import core.*;
 import inputs.and.ANDInputSamples;
 import inputs.and.And;
@@ -11,11 +12,17 @@ import network.Perceptron;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        NeuralNetwork perceptron = new Perceptron();
+
+//        Mnist mnist = new Mnist();
+//        MNISTInputSamples mnistInputSamples = new MNISTInputSamples(mnist.getAllMnistData());
+//        mnistInputSamples.getSample(0);
+//        System.out.println(mnistInputSamples.getInput().getLayer().getNeurons().get(153).getOutput());
+
+
         And and = new And();
         ANDInputSamples andInputSamples = new ANDInputSamples(and.getAllANDData());
-        andInputSamples.getSample(0);
-        System.out.println(andInputSamples.getInput().getLayer().getNeurons().get(0).getOutput());
-        perceptron.attachInput(andInputSamples.getInput());
+        NeuralNetwork perceptron = new Perceptron();
+
+
     }
 }
