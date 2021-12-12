@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="framework_rn2.0:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/framework_rn2_0_jar</output-path>
+  <artifact type="jar" build-on-make="true" name="framework_rn3.0:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/framework_rn3_0_jar</output-path>
     <root id="archive" name="framework_rn2.0.jar">
       <element id="module-output" name="framework_rn2.0" />
     </root>

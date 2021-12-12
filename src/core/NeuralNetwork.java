@@ -42,15 +42,17 @@ public class NeuralNetwork implements Serializable {
      */
     public boolean addLayer(int index, Layer layer) {
         if (layer.getNeuronsCount() == 0 || index == 0) {
-            System.out.println("Camada está sem neurônios");
+            System.out.println("Camada está sem neurônios ou o indíce está na posição zero");
             return false;
-        }
-        if ((layers.get(index + 1) != null)) {
-            layers.get(index - 1).clearAllConnections();
-            connect(layers.get(index - 1), layer);
-            connect(layer, layers.get(index + 1));
         } else {
-            connect(layer, layers.get(index + 1));
+            if (index == layers.size() - 1)
+                connect(layers.get(index - 1), layer);
+//            layers.add(index, layer);
+            if (index < layers.size() - 1) {
+                layers.get(index - 1).clearAllConnections();
+                connect(layers.get(index - 1), layer);
+                connect(layer, layers.get(index + 1));
+            }
         }
         layers.add(index, layer);
         return true;
@@ -118,7 +120,20 @@ public class NeuralNetwork implements Serializable {
     public void attachInput(Input input) throws Exception {
         if (this.input == null) {
             this.input = input;
-            addLayer(0, input.getLayer());
+            input.getLayer().setActivationFunction(null);
+            addLayer(input.getLayer());
+        } else {
+            throw new Exception("Ops! Já temos a camada input na rede");
+        }
+    }
+
+    /**
+     * recebe a camada de saída
+     */
+    public void attachOutput(Output output) throws Exception {
+        if (this.output == null) {
+            this.output = output;
+            addLayer(layers.size(), output.getLayer());
         } else {
             throw new Exception("Ops! Já temos a camada input na rede");
         }
@@ -143,18 +158,6 @@ public class NeuralNetwork implements Serializable {
         }
         return info.toString();
     }
-
-    /**
-     * recebe a camada de saída
-     */
-//    public void attachOutput(Output output) throws Exception {
-//        if (this.output == null) {
-//            this.output = output;
-//            addLayer(0, output.getLayer());
-//        } else {
-//            throw new Exception("Ops! Já temos a camada input na rede");
-//        }
-//    }
 
     /**
      * Cria uma instancia de connection weight com valor aleatorio de peso dentro de [-1 .. 1]
