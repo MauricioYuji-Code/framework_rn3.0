@@ -7,10 +7,11 @@ import java.util.ArrayList;
 public class Input {
 
     public ArrayList<Double> values = new ArrayList<>();
-    public Layer inputLayer;
+    public Layer inputLayer = new Layer();
 
     public Input(ArrayList<Double> values) {
         this.values = values;
+        convertToLayer();
     }
 
     public Input() {
@@ -28,6 +29,7 @@ public class Input {
         double[] result = new double[values.size()];
         for (int i = 0; i < result.length; i++) {
             result[i] = (values.get(i).doubleValue() - getMinValue()) / (double) (getMaxValue() - getMinValue());
+//            System.out.println(result[i]);
         }
         return result;
     }
@@ -44,10 +46,11 @@ public class Input {
     //Se a layer estiver vazia a conversão cria novos neuronios passando valores normalizados, caso ao contrario modifica os valores ja criados na layer -> neuronios
 
     public void convertToLayer() {
-        if (inputLayer.getNeuronsCount() != 0)
+        if (inputLayer.getNeuronsCount() == 0)
             this.inputLayer = new Layer(values.size());
+        double[] store = getNormalizedInput();
         for (int i = 0; i < inputLayer.getNeuronsCount(); i++) {
-            inputLayer.getNeurons().get(i).setOutput(getNormalizedInput()[i]);
+            inputLayer.getNeurons().get(i).setOutput(store[i]);
         }
     }
 

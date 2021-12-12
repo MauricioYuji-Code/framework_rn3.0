@@ -14,7 +14,7 @@ public class Neuron implements Serializable, Cloneable {
     /**
      * Coleção de Connections de entrada do Neuron (conexões para este Neuron)
      */
-
+    //depreciado
     protected ArrayList<Connection> inputConnections;
 
     /**

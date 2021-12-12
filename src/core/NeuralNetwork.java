@@ -41,9 +41,11 @@ public class NeuralNetwork implements Serializable {
      * @param layer camada adicionada
      */
     public boolean addLayer(int index, Layer layer) {
-        if (layer.getNeuronsCount() == 0 || index == 0)
+        if (layer.getNeuronsCount() == 0 || index == 0) {
+            System.out.println("Camada está sem neurônios");
             return false;
-        if (!layers.get(index + 1).equals(null)) {
+        }
+        if ((layers.get(index + 1) != null)) {
             layers.get(index - 1).clearAllConnections();
             connect(layers.get(index - 1), layer);
             connect(layer, layers.get(index + 1));
@@ -93,7 +95,6 @@ public class NeuralNetwork implements Serializable {
         }
         this.randomizeWeight();
     }
-
 
     /**
      * retorna posicao da camada

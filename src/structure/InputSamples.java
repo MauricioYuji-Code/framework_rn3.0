@@ -13,19 +13,31 @@ public class InputSamples {
 
     public InputSamples(ArrayList<ArrayList<Double>> samples) {
         this.samples = samples;
-        input = new Input();
+        input = new Input(samples.get(0));
     }
 
-    public ArrayList<Double> nextSample() {
+    //Deixar void?
+//    public ArrayList<Double> nextSample() {
+//        if (index < samples.size())
+//            return samples.get(index++);
+//        return null;
+//    }
+
+    public void nextSample() {
         if (index < samples.size())
-            return samples.get(index++);
-        return null;
+            input.setValues(samples.get(index++));
     }
 
-    public ArrayList<Double> getSample(int i) {
+    //Deixar void?
+//    public ArrayList<Double> getSample(int i) {
+//        if (!samples.get(i).isEmpty())
+//            return samples.get(i);
+//        return null;
+//    }
+
+    public void getSample(int i) {
         if (!samples.get(i).isEmpty())
-            return samples.get(i);
-        return null;
+            input.setValues(samples.get(i));
     }
 
     public boolean next() {

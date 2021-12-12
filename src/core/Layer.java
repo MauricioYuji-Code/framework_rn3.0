@@ -43,12 +43,18 @@ public class Layer implements Serializable, Cloneable {
         populateLayer(qtdNeurons, activationFunction);
     }
 
+    /**
+     * Limpa as outConnections
+     * */
     public void clearAllConnections() {
         for (Neuron n : neurons) {
             n.clearConnections();
         }
     }
 
+    /**
+     * Randomiza os pesos
+     * */
     public void randomizeLayerWeights() {
         for (int i = 0; i < this.getNeuronsCount(); i++) {
             this.getNeurons().get(i).radomizeOutputWeight();
@@ -56,6 +62,9 @@ public class Layer implements Serializable, Cloneable {
     }
 
 
+    /**
+     * Popular a camada com a função de ativação
+     * */
     public void populateLayer(int neuronsCount, ActivationFunction activationFunction) {
         for (int n = 1; n <= neuronsCount; n++)
             neurons.add(new Neuron(activationFunction));
@@ -122,6 +131,9 @@ public class Layer implements Serializable, Cloneable {
         return neurons.isEmpty();
     }
 
+    /**
+     * Checar integridade da camada
+     */
     public boolean checkNeuronsActivation() {
         for (int i = 0; i < this.getNeuronsCount(); i++) {
             if (getActivationFunction(i).equals(getActivationFunction()))
