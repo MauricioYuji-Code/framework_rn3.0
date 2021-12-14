@@ -16,4 +16,9 @@ public class Step implements ActivationFunction {
     public double derivate(double value) {
         return 0;
     }
+
+    @Override
+    public String getName() {
+        return this.getClass().getName();
+    }
 }

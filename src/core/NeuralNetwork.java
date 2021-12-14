@@ -1,31 +1,40 @@
 package core;
 
 import learning.Training;
-import structure.Input;
-import structure.Output;
+import assistant.structure.Input;
+import assistant.structure.Output;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class NeuralNetwork implements Serializable {
 
-    private ArrayList<Layer> layers;
+    protected ArrayList<Layer> layers;
 
-    private ArrayList<ArrayList<Double>> samples;
+    protected ArrayList<ArrayList<Double>> samples;
 
-    private String label;
+    protected String label;
 
-    private Input input;
+    protected Input input;
 
-    private Output output;
-
-    private Training training = new Training();
+    protected Output output;
 
     public NeuralNetwork() {
         this.layers = new ArrayList<>();
+    }
+
+    /**
+     * propagação dos valores
+     */
+    public boolean propagate() {
+        if (layers.isEmpty() || output == null || input == null)
+            return false;
+        for (Layer l : layers) {
+            l.propagate();
+        }
+        return true;
     }
 
     /**
@@ -34,7 +43,11 @@ public class NeuralNetwork implements Serializable {
      * @param layer camada adicionada
      */
     public void addLayer(Layer layer) {
-        layers.add(layer);
+        if (layers.size() == 0) {
+            layers.add(layer);
+        } else {
+            addLayer(layers.size() - 1, layer);
+        }
     }
 
     /**
@@ -45,7 +58,7 @@ public class NeuralNetwork implements Serializable {
      */
     public boolean addLayer(int index, Layer layer) {
         if (layer.getNeuronsCount() == 0 || index == 0) {
-            System.out.println("Camada está sem neurônios ou o indíce está na posição zero");
+//            System.out.println("Camada está sem neurônios ou o indíce está na posição zero");
             return false;
         } else {
             if (index == layers.size() - 1)
@@ -92,7 +105,7 @@ public class NeuralNetwork implements Serializable {
         return true;
     }
 
-    private void connect(Layer l1, Layer l2) {
+    protected void connect(Layer l1, Layer l2) {
         for (int i = 0; i < l1.getNeuronsCount(); i++) {
             for (int j = 0; j < l2.getNeuronsCount(); j++) {
                 l1.getNeurons().get(i).addOutputConnection(l2.getNeurons().get(j));
@@ -123,8 +136,8 @@ public class NeuralNetwork implements Serializable {
     public void attachInput(Input input) throws Exception {
         if (this.input == null) {
             this.input = input;
-            input.getLayer().setActivationFunction(null);
-            addLayer(input.getLayer());
+            connect(input.getLayer(), layers.get(0));
+            layers.add(0, input.getLayer());
         } else {
             throw new Exception("Ops! Já temos a camada input na rede");
         }
@@ -150,7 +163,7 @@ public class NeuralNetwork implements Serializable {
         info.append("Output attached: " + (output != null) + "\n");
         for (int i = 0; i < layers.size(); i++) {
             info.append("Layer index: " + i + " Number of neurons: " + layers.get(i).getNeuronsCount() + "\n");
-            info.append("Layer index: " + i + " Activation Function: " + layers.get(i).getActivationFunction() + "\n");
+            info.append("Layer index: " + i + " Activation Function: " + layers.get(i).getActivationFunction().getName() + "\n");
             if (verbose) {
                 for (int j = 0; j < layers.get(i).getNeuronsCount(); j++) {
                     Neuron n = layers.get(i).getNeurons().get(j);
@@ -177,6 +190,11 @@ public class NeuralNetwork implements Serializable {
     //Todo verificar integridade das conexões
     public boolean checkIntegrity() {
         return true;
+    }
+
+    public void training() {
+        Training training = new Training(this);
+
     }
 
     /******Getters e Setters*****/

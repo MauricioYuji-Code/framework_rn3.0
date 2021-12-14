@@ -162,6 +162,7 @@ public class Neuron implements Serializable, Cloneable {
     /******Getters e Setters*****/
 
     public double getActivateValue() {
+        System.out.println("value: " + value);
         return activationFunction.calculate(value);
     }
 
@@ -214,6 +215,12 @@ public class Neuron implements Serializable, Cloneable {
 
     public void setOutConnections(ArrayList<Connection> outConnections) {
         this.outConnections = outConnections;
+    }
+
+    public void propagate() {
+        for (Connection c : outConnections) {
+            c.propagate();
+        }
     }
 }
 

@@ -12,4 +12,9 @@ public class Sigmoid implements ActivationFunction {
     public double derivate(double value) {
         return value * (1 - value);
     }
+
+    @Override
+    public String getName() {
+        return this.getClass().getName();
+    }
 }
