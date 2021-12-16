@@ -12,7 +12,6 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @see Layer
  */
-
 public class Neuron implements Serializable, Cloneable {
 
 //    /**

@@ -8,6 +8,11 @@ import java.util.List;
 import activationfunctions.Sigmoid;
 import interfaces.ActivationFunction;
 
+/**
+ * Classe layer é responsável pela manipulação dos neurônios
+ *
+ * @see NeuralNetwork
+ */
 public class Layer implements Serializable, Cloneable {
 
     //TODO Pensar numa sintaxe de nomes para ids de layres para construção automática pela Rede Neural
@@ -38,6 +43,12 @@ public class Layer implements Serializable, Cloneable {
         populateLayer(neuronsCount, new Sigmoid());
     }
 
+    /**
+     * Cria uma instância de camada para um número especificado de neurônios e função de ativação
+     *
+     * @param qtdNeurons quantidade de neurônios
+     * @param activationFunction função de ativação
+     */
     public Layer(int qtdNeurons, ActivationFunction activationFunction) {
         this.neurons = new ArrayList<Neuron>();
         populateLayer(qtdNeurons, activationFunction);
@@ -64,6 +75,9 @@ public class Layer implements Serializable, Cloneable {
 
     /**
      * Popular a camada com a função de ativação
+     *
+     * @param neuronsCount números de neurônios
+     * @param activationFunction função de ativação
      */
     public void populateLayer(int neuronsCount, ActivationFunction activationFunction) {
         for (int n = 1; n <= neuronsCount; n++)
@@ -71,7 +85,7 @@ public class Layer implements Serializable, Cloneable {
     }
 
     /**
-     * Adicionar neuronio
+     * Adicionar neurônio
      *
      * @param neuron a ser adicionado
      */
@@ -80,19 +94,19 @@ public class Layer implements Serializable, Cloneable {
     }
 
     /**
-     * Adicionar neuronio na posicao especifica
+     * Adicionar neurônio na posição específica
      *
      * @param neuron a ser adicionado
-     * @param index  posicao
+     * @param index posição
      */
     public void addNeuron(int index, Neuron neuron) {
         neurons.add(index, neuron);
     }
 
     /**
-     * Substituir neuronio
+     * Substituir neurônio
      *
-     * @param index  substitui no indice
+     * @param index  substitui no índice
      * @param neuron substituto
      */
     public void setNeuron(int index, Neuron neuron) {
@@ -100,9 +114,9 @@ public class Layer implements Serializable, Cloneable {
     }
 
     /**
-     * remover neuronio da camada
+     * remover neurônio da camada
      *
-     * @param neuron neuronio a ser removido
+     * @param neuron neurônio a ser removido
      */
     public void removeNeuron(Neuron neuron) {
         int index = indexOf(neuron);
@@ -112,27 +126,33 @@ public class Layer implements Serializable, Cloneable {
     /**
      * remover todos os neuronios
      */
-
     public void removeAllNeurons() {
         neurons.clear();
     }
 
     /**
-     * Retornar a posicao do neuronio
+     * Retornar a posição do neurônio
      *
-     * @param neuron neuron object
-     * @return index posicao especificada
+     * @param neuron neurônio
+     * @return index posição especificada
      */
     public int indexOf(Neuron neuron) {
         return neurons.indexOf(neuron);
     }
 
+    /**
+     * Verifica se está vazio
+     *
+     * @return verdadeiro vazio e falso com neurônios
+     */
     public boolean isEmpty() {
         return neurons.isEmpty();
     }
 
     /**
-     * Checar integridade da camada
+     * Verifica se há função de ativação nos neurônios na camada
+     *
+     * @return verdeiro se tiver função de ativação e falso se não
      */
     public boolean checkNeuronsActivation() {
         for (int i = 0; i < this.getNeuronsCount(); i++) {
@@ -142,12 +162,10 @@ public class Layer implements Serializable, Cloneable {
         return false;
     }
 
-/******Getters e Setters*****/
-
     /**
-     * Returns numero de neuronios na camada
+     * Obter número de neurônios na camada
      *
-     * @return number of neurons in this layer
+     * @return número de neurônios
      */
     public int getNeuronsCount() {
         return neurons.size();
@@ -155,27 +173,37 @@ public class Layer implements Serializable, Cloneable {
 
 
     /**
-     * Retorna lista de neuronios da camada
+     * Obter lista de neurônios da camada
      */
-
     public final List<Neuron> getNeurons() {
         return Collections.unmodifiableList(neurons);
     }
 
     /**
-     * Retorna neuronio especifico
+     * Obter neurônio específico
      *
-     * @param index indice do neuronio
+     * @param index índice do neurônio
      */
     public Neuron getNeuronAt(int index) {
         return neurons.get(index);
     }
 
+    /**
+     * Obter função de ativação da camada
+     *
+     * @return função de ativação da camada
+     */
     public ActivationFunction getActivationFunction() {
         //TODO Ideal é verificar se todos os neurônios estão com a mesma activationFunction antes de retorná-la
         return getActivationFunction(0);
     }
 
+    /**
+     * Obter função de ativação de um neurônio específico
+     *
+     * @param pos posição
+     * @return função de ativação
+     */
     public ActivationFunction getActivationFunction(int pos) {
         if (pos >= 0 && pos < neurons.size()) {
             return neurons.get(pos).getActivationFunction();
@@ -183,12 +211,20 @@ public class Layer implements Serializable, Cloneable {
         return null;
     }
 
+    /**
+     * Definir função de ativação
+     *
+     * @param activationFunction função de ativação
+     */
     public void setActivationFunction(ActivationFunction activationFunction) {
         for (Neuron n : neurons) {
             n.setActivateValue(activationFunction);
         }
     }
 
+    /**
+     * Propagação através dos neurônios
+     */
     public void propagate() {
         for (Neuron n : neurons) {
             n.propagate();

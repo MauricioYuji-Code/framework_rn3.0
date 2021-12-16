@@ -8,7 +8,6 @@ import java.io.Serializable;
  * @see Neuron
  * @seecore.Neuron#activationFunction
  */
-
 public class Connection implements Serializable {
 
     /**
