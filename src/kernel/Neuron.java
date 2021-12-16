@@ -9,8 +9,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Classe neuron é responsável por conter as conexões de saída, valores
- * @seecore.Neuron#activationFunction
  *
+ * @see Layer
  */
 
 public class Neuron implements Serializable, Cloneable {
@@ -22,8 +22,7 @@ public class Neuron implements Serializable, Cloneable {
 //    protected ArrayList<Connection> inputConnections;
 
     /**
-     * Coleção de Connections de saída do Neuron (conexões deste para outro
-     * Neuron)
+     * Coleção de conexões de saída do neurônio
      */
     protected ArrayList<Connection> outConnections;
 
@@ -33,19 +32,19 @@ public class Neuron implements Serializable, Cloneable {
     protected double value = 0;
 
     /**
-     * Neuron output
+     * Valor da saída do neuônio
      */
     protected double output = 0;
 
     /**
-     * Neuron's label
+     * Rótulo do neurônio
      */
     private String label;
 
     protected ActivationFunction activationFunction;
 
     /**
-     * Construtor neuron inicializando as listas de conections de entrada e de saida
+     * Cria a instância vazia do neurônio inicializando as listas de conections de saída e a função de ativação
      */
     public Neuron() {
 //        this.inputConnections = new ArrayList<Connection>();
@@ -53,6 +52,11 @@ public class Neuron implements Serializable, Cloneable {
         this.activationFunction = new Sigmoid();
     }
 
+    /**
+     * Cria a instância do neurônio inicializando as listas de conections de saída e a função de ativação
+     *
+     * @param activationFunction função de ativação no neurônio
+     */
     public Neuron(ActivationFunction activationFunction) {
 //        this.inputConnections = new ArrayList<Connection>();
         this.outConnections = new ArrayList<Connection>();
@@ -62,11 +66,13 @@ public class Neuron implements Serializable, Cloneable {
     /**
      * deleta todas as conexoes de saida do neuronio
      */
-
     public void clearConnections() {
         this.getOutConnections().clear();
     }
 
+    /**
+     * Randomiza os valores conectados da saída do neurônio
+     */
     public void radomizeOutputWeight() {
         ThreadLocalRandom tlr = ThreadLocalRandom.current();
         for (int i = 0; i < this.getOutConnections().size(); i++) {
@@ -74,17 +80,22 @@ public class Neuron implements Serializable, Cloneable {
         }
     }
 
-    /**
-     * Retorna verdadeiro se houver conexões de entrada para este neurônio, falso
-     * por outro lado
-     *
-     * @return true se houver conexão de entrada, false caso contrário
-     */
-
+//    /**
+//     * Retorna verdadeiro se houver conexões de entrada para este neurônio, falso
+//     * por outro lado
+//     *
+//     * @return true se houver conexão de entrada, false caso contrário
+//     */
 //    public boolean hasInputConnections() {
 //        return (inputConnections.size() > 0);
 //    }
 
+    /**
+     * Verifica se há nonexões de saída
+     *
+     * @param toNeuron neurônio de destino
+     * @return verdadeiro se houver, falso se não houver
+     */
     public boolean hasOutputConnectionTo(Neuron toNeuron) {
         for (Connection connection : outConnections) {
             if (connection.getToNeuron() == toNeuron) {
@@ -94,13 +105,12 @@ public class Neuron implements Serializable, Cloneable {
         return false;
     }
 
-    /**
-     * Verifique a conexão do neurônio
-     *
-     * @param neuron conexão do Neuron a ser verificada
-     * @return true se houver conexão de entrada, false caso contrário
-     */
-
+//    /**
+//     * Verifique a conexão do neurônio
+//     *
+//     * @param neuron conexão do Neuron a ser verificada
+//     * @return true se houver conexão de entrada, false caso contrário
+//     */
 //    public boolean hasInputConnectionFrom(Neuron neuron) {
 //        for (Connection connection : inputConnections) {
 //            if (connection.getFromNeuron() == neuron) {
@@ -114,20 +124,18 @@ public class Neuron implements Serializable, Cloneable {
     /**
      * Adiciona conexão de entrada de determinado neurônio
      *
-     * @param toNeuron neuron para conectar a partir do neuronio selecionado
+     * @param toNeuron neurônio para conectar ao neurônio de destino
      */
-
     public void addOutputConnection(Neuron toNeuron) {
         Connection connection = new Connection(this, toNeuron);
 //        this.addInputConnection(connection);
     }
 
-    /**
-     * Adiciona a conexão de entrada especificada
-     *
-     * @param connection input connection para adicionar
-     */
-
+//    /**
+//     * Adiciona a conexão de entrada especificada
+//     *
+//     * @param connection input connection para adicionar
+//     */
 //    public void addInputConnection(Connection connection) {
 //        this.inputConnections.add(connection);
 //        Neuron fromNeuron = connection.getFromNeuron();
@@ -138,33 +146,36 @@ public class Neuron implements Serializable, Cloneable {
     /**
      * Adiciona a conexão de saída especificada
      *
-     * @param connection adicionar Connection de saída
+     * @param connection adicionar conexão de saída
      */
-
     protected void addOutputConnection(Connection connection) {
         this.outConnections.add(connection);
     }
 
     /**
-     * Sets this neuron output
+     * Definir valor de saída
      *
-     * @param output value to set
+     * @param output valor definido
      */
     public void setOutput(double output) {
         this.output = output;
     }
 
-    /**
-     * Returns conexões de entrada deste neuronio
-     *
-     * @return input connections of this neuron
-     */
+//    /**
+//     * Returns conexões de entrada deste neuronio
+//     *
+//     * @return input connections of this neuron
+//     */
 //    public final List<Connection> getInputConnections() {
 //        return Collections.unmodifiableList(inputConnections);
 //    }
 
-    /******Getters e Setters*****/
 
+    /**
+     * Obter valor ativado
+     *
+     * @return valor ativado
+     */
     public double getActivateValue() {
         System.out.println("value: " + value);
         return activationFunction.calculate(value);
@@ -180,47 +191,80 @@ public class Neuron implements Serializable, Cloneable {
     }
 
     /**
-     * Retorna a entrada
+     * Retorna o valor
      *
-     * @return input
+     * @return valor
      */
     public double getValue() {
         return this.value;
     }
 
     /**
-     * Retorna a saída do neurônio
+     * Retorna valor de saída do neurônio
      *
-     * @return saída do neurônio
+     * @return valor saída do neurônio
      */
     public double getOutput() {
         return this.output;
     }
 
+    /**
+     * Obter rótulo
+     *
+     * @return rótulo
+     */
     public String getLabel() {
         return label;
     }
 
+    /**
+     * Definir rótulo
+     *
+     * @param label rótulo
+     */
     public void setLabel(String label) {
         this.label = label;
     }
 
+    /**
+     * Definir função de ativação
+     *
+     * @param activationFunction função de ativação
+     */
     public void setActivateValue(ActivationFunction activationFunction) {
         this.activationFunction = activationFunction;
     }
 
+    /**
+     * Obter função de ativação
+     *
+     * @return função de ativação
+     */
     public ActivationFunction getActivationFunction() {
         return activationFunction;
     }
 
+    /**
+     * Obter conexões de saída
+     *
+     * @return conexões de saída
+     */
     public ArrayList<Connection> getOutConnections() {
         return outConnections;
     }
 
+    /**
+     * Definir conexões de saída
+     *
+     * @param outConnections conexões de saída
+     */
     public void setOutConnections(ArrayList<Connection> outConnections) {
         this.outConnections = outConnections;
     }
 
+    /**
+     * Propagação das conexões de saída deste neurônio
+     */
     public void propagate() {
         for (Connection c : outConnections) {
             c.propagate();
