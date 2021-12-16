@@ -2,34 +2,39 @@ package learning;
 
 import kernel.NeuralNetwork;
 
+/**
+ * Classe de treinamento
+ */
 public class Training {
 
-
-    // Fixos no treinamento (Melhorar)
     private String typeOfLearning = "Supervisioned";
     private String learningStrategies = "Backpropagation";
+    /**
+     * Objeto rede neural
+     */
     private NeuralNetwork neuralNetwork;
 
-
+    /**
+     * Instancia do treinamento redebendo a rede neural
+     *
+     * @param neuralNetwork rede neural
+     */
     public Training(NeuralNetwork neuralNetwork) {
         this.neuralNetwork = neuralNetwork;
         neuralNetwork.randomizeWeight();
     }
 
-    //Fazer Feedfoward
-
+    /**
+     * Função feedfoward
+     */
     public void feedfoward() {
-
     }
 
-
-    //Fazer o backpropagation
-
-
-
-    /*
-     * Getters e Setters
-     * */
+    /**
+     * Função de backpropagation
+     */
+    public void backpropagation() {
+    }
 
     public String getTypeOfLearning() {
         return typeOfLearning;

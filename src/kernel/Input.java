@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Classe de entradas, onde ela será normalizada e mapeada em camada e neuronios
  *
- * @see Input
+ * @see Output
  */
 public class Input {
 
