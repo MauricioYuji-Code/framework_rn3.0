@@ -3,6 +3,9 @@ package assistant.and;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ *
+ */
 public class And {
     private ArrayList<ArrayList<Double>> andData = new ArrayList<>();
 
