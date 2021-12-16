@@ -1,6 +1,6 @@
 package learning;
 
-import core.NeuralNetwork;
+import kernel.NeuralNetwork;
 
 public class Training {
 

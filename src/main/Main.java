@@ -2,9 +2,9 @@ package main;
 
 import activationfunctions.Sigmoid;
 import activationfunctions.Step;
-import core.*;
-import assistant.mnist.*;
-import learning.Report;
+import kernel.*;
+import network.mnist.*;
+import utils.Report;
 
 public class Main {
 
@@ -20,8 +20,8 @@ public class Main {
         MNISTInputSamples mnistInputSamples = new MNISTInputSamples(mnist.getAllMnistData());
         mnistInputSamples.getSample(0);
         nn.attachInput(mnistInputSamples.getInput());
-        int[] arr = new int[]{70, 80, 65, 50, 3, 25, 23, 22, 21, 20, 19, 15, 14, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-        String report = Report.generate(nn.showInfo(true), arr);
-        Report.reportPrint("report", report);
+//        int[] arr = new int[]{70, 80, 65, 50, 3, 25, 23, 22, 21, 20, 19, 15, 14, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+//        String report = Report.generate(nn.showInfo(true), arr);
+//        Report.reportPrint("report", report);
     }
 }

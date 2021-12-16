@@ -1,6 +1,6 @@
 package activationfunctions;
 
-import interfac.ActivationFunction;
+import interfaces.ActivationFunction;
 
 public class Step implements ActivationFunction {
     @Override
