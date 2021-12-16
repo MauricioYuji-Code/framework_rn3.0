@@ -8,8 +8,30 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Classe de base para redes neurais artificiais
+ * Classe container para redes neurais artificiais. A classe NeuralNetwork é formada pelas estruturas básicas
+ * que compõem uma rede neural artificial. É composta de um e apenas um {@link kernel.Input}, um e apenas um
+ * {@link kernel.Output} e um {@link java.util.ArrayList} de 1 ou mais {@link kernel.Layer layers}.
  *
+ * <p>Os métodos {@link NeuralNetwork#training()}  e {@link NeuralNetwork#propagate()} só funcionarão após todos estes
+ * elementos estiverem definidos, configurados e acoplados à NeuralNetwork pelos métodos {@link #attachInput(Input)},
+ * {@link #attachOutput(Output)}} e {@link #addLayer(Layer)}.</p><pre>
+ *     NeuralNetwork nn = new NeuralNetwork();
+ *     Layer l1 = new Layer(numberOfNeurons);
+ *     l1.setActivationFunction(customActivationFunctionIfNeeded);
+ *     nn.addLayer(l1);
+ *     //Repetir para quantas layers forem necessárias
+ *     ...
+ *     Input input = customInput.getInput();
+ *     Output output = customOutput.getOutput();
+ *     Trainer trainer = new CustomTrainer(...);
+ *     nn.attachInput(input);
+ *     nn.attachOutput(output);
+ *     nn.setTrainer(trainer);
+ *
+ *     //Neste momento a rede está pronta para ser treinada ou usada.
+ *     nn.beginTraining();
+ *
+ * </pre>
  * @see NeuralNetwork
  */
 public class NeuralNetwork implements Serializable {
