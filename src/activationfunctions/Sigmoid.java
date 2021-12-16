@@ -4,6 +4,8 @@ import interfaces.ActivationFunction;
 
 /**
  *Função de transferência Sigmoid
+ *
+ * @see Step
  */
 public class Sigmoid implements ActivationFunction {
 

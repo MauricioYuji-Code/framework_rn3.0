@@ -4,6 +4,8 @@ import interfaces.ActivationFunction;
 
 /**
  * Função de transferência Degrau
+ *
+ * @see Sigmoid
  */
 public class Step implements ActivationFunction {
 
