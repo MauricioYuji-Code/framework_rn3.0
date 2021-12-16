@@ -174,6 +174,8 @@ public class Layer implements Serializable, Cloneable {
 
     /**
      * Obter lista de neurônios da camada
+     *
+     * @return lista de neurônios
      */
     public final List<Neuron> getNeurons() {
         return Collections.unmodifiableList(neurons);
@@ -181,8 +183,8 @@ public class Layer implements Serializable, Cloneable {
 
     /**
      * Obter neurônio específico
-     *
-     * @param index índice do neurônio
+     * @param index índice
+     * @return neurônio específico
      */
     public Neuron getNeuronAt(int index) {
         return neurons.get(index);

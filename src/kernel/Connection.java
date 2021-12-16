@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Classe conection é responsavel por conectar um Neuron
  *
  * @see Neuron
- * @seecore.Neuron#activationFunction
+ * @seekernel.Neuron#activationFunction
  */
 public class Connection implements Serializable {
 

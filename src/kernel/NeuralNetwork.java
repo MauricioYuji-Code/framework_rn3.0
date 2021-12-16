@@ -48,6 +48,8 @@ public class NeuralNetwork implements Serializable {
 
     /**
      * propagação dos valores
+     *
+     * @return verdadeiro se a propagação estiver de acordo
      */
     public boolean propagate() {
         if (layers.isEmpty() || output == null || input == null)
@@ -76,6 +78,7 @@ public class NeuralNetwork implements Serializable {
      *
      * @param index indice
      * @param layer camada adicionada
+     * @return verdadeiro se o função ocorrer
      */
     public boolean addLayer(int index, Layer layer) {
         if (layer.getNeuronsCount() == 0 || index == 0) {
@@ -108,6 +111,7 @@ public class NeuralNetwork implements Serializable {
      * Remove camada no indice especifico
      *
      * @param index indice
+     * @return verdadeiro se a função ocorrer
      */
     public boolean removeLayerAt(int index) {
         //Todo verificar quando tiver input
@@ -145,6 +149,7 @@ public class NeuralNetwork implements Serializable {
      * Retorna posição da camada
      *
      * @param layer camada
+     * @return camadas
      */
     public int indexOf(Layer layer) {
         return layers.indexOf(layer);
@@ -152,6 +157,8 @@ public class NeuralNetwork implements Serializable {
 
     /**
      * Obter numero de camadas
+     *
+     * @return tamanho da camada
      */
     public int getLayersCount() {
         return layers.size();

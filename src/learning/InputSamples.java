@@ -33,7 +33,7 @@ public class InputSamples {
     /**
      * Instância da lista de amostras recebendo a lista
      *
-     * @param samples
+     * @param samples amostras
      */
     public InputSamples(ArrayList<ArrayList<Double>> samples) {
         this.samples = samples;
