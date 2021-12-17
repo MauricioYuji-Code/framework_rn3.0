@@ -8,9 +8,14 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Classe neuron é responsável por conter as conexões de saída, valores
+ * A classe Neuron é responsável conter conexões de saída, formado por um {@link java.util.ArrayList} de {@link kernel.Connection}.
  *
- * @see Layer
+ * <p>Através do construtor {@link Neuron#Neuron(ActivationFunction)} é possível a criação do neurônio, definindo a função de ativação</p>
+ * <p>Através do método {@link Neuron#addValue(double)}, é realizado a soma da multiplicação gerada pela {@link kernel.Connection}</p>
+ *
+ *  <pre>Complementar!</pre>
+ *
+ * @see Connection
  */
 public class Neuron implements Serializable, Cloneable {
 

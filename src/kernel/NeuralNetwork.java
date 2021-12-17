@@ -32,7 +32,7 @@ import java.util.List;
  *     nn.beginTraining();
  *
  * </pre>
- * @see NeuralNetwork
+ * @see Layer
  */
 public class NeuralNetwork implements Serializable {
 
