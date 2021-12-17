@@ -5,8 +5,10 @@ import kernel.Layer;
 import java.util.ArrayList;
 
 /**
- * Classe de saída, onde ela será mapeada em camada e neuronios
+ * A classe Output é responsável conter o {@link java.util.ArrayList} de objetos de saída {@link Output#outputs}, e um objeto Layer classificada como camada de saída {@link Output#outputLayer}
  *
+ * <p>Através do construtor {@link Output#Output(int)}, é gerado uma camada de saída com o numero de neurônios contidos nela.
+ * O método {@link Output#getExpectedValue()} será útilizado para obter o neurônio com o valor máximo</p>
  * @see Input
  */
 public abstract class Output {

@@ -5,8 +5,10 @@ import interfaces.ActivationFunction;
 import java.util.ArrayList;
 
 /**
- * Classe de entradas, onde ela será normalizada e mapeada em camada e neuronios
+ * A classe Input é responsável conter os valores de entrada {@link Input#values}, e um objeto Layer classificada como camada de entrada {@link Input#inputLayer}
  *
+ * <p>Através do construtor {@link Input#Input(ArrayList)}, os valores de entrada serão controladas pela classe, após isto
+ * serão chamados os métodos {@link Input#convertToLayer()} e {@link Input#getNormalizedInput()} para a normalização de escala dos valores</p>
  * @see Output
  */
 public class Input {
