@@ -2,7 +2,6 @@ package kernel;
 
 import activationfunctions.Sigmoid;
 import interfaces.ActivationFunction;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -12,9 +11,14 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * <p>Através do construtor {@link Neuron#Neuron(ActivationFunction)} é possível a criação do neurônio, definindo a função de ativação</p>
  * <p>Através do método {@link Neuron#addValue(double)}, é realizado a soma da multiplicação gerada pela {@link kernel.Connection}</p>
- *
- *  <pre>Complementar!</pre>
- *
+ * <p>O peso de suas conexões serão randomizadas através do método {@link Neuron#radomizeOutputWeight()}</p>
+ *  <pre>
+ *      //Criação dos neurônios
+ *      Neuron n1 = new Neuron(new Step());
+ *      Neuron n2 = new Neuron();
+ *      //Randomização dos pesos
+ *      n1.radomizeOutputWeight();
+ *  </pre>
  * @see Connection
  */
 public class Neuron implements Serializable, Cloneable {

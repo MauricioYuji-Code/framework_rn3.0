@@ -3,9 +3,19 @@ package kernel;
 import java.io.Serializable;
 
 /**
- * Classe conection é responsavel por conectar um Neuron
- *
- * @see Neuron
+ * A classe Connection é responsável pelas conexões dos neurônios, como atributos temos o {@link Connection#fromNeuron} Inicial e {@link Connection#toNeuron} destino.
+ * <p>Através do construtor {@link Connection#Connection(Neuron, Neuron, double)}, é possível a instância do objeto com os neurônios conectados e seu valor do peso</p>
+ * <p>Através do método {@link Connection#propagate()}, será feito a propagação (Multiplicação da saída do neurônio, com o valor do peso).</p>
+ * <pre>
+ *  //Criação dos neurônios
+ *  Neuron n1 = new Neuron();
+ *  Neuron n2 = new Neuron();
+ *  //Conectando os neurônios
+ *  Connection c = new Connection (n1, n2);
+ *  //Realizando a propagação
+ *  c.propagate();
+ * </pre>
+ * @see Input
  */
 public class Connection implements Serializable {
 
