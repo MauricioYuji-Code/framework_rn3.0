@@ -1,12 +1,12 @@
-package utils;
+package report;
 
 public class PixelCalc {
 
-    Integer Ratio_width = 4;
-    Integer Ratio_height = 3;
-    Integer Pixels_width = null;
-    Integer Pixels_height = null;
-    String aux = "";
+    private Integer Ratio_width = 4;
+    private Integer Ratio_height = 3;
+    private Integer Pixels_width = null;
+    private Integer Pixels_height = null;
+    private String aux = "";
 
     public void defaultImage (){
         this.Pixels_width = 800;

@@ -9,12 +9,22 @@ import activationfunctions.Sigmoid;
 import interfaces.ActivationFunction;
 
 /**
- * A classe Layer é responsável por conter os neurônios, formado por um {@link java.util.ArrayList} de {@link kernel.Neuron}, e constituida por uma função de ativação.
+ * A classe Layer é responsável por conter os neurônios, formado por um {@link java.util.ArrayList}
+ * de {@link kernel.Neuron}, e constituida por uma função de ativação.
  *
- * <p>Através do construtor {@link Layer#Layer(int neuronsCount)} é possível a criação da camada já com seu numero de neurônios definidos</p>
- * <p>Através do construtor {@link Layer#Layer(int qtdNeurons, ActivationFunction activationFunction)} é possível a criação da camada já com seu numero de neurônios definidos e qual será a função de ativação utilizada</p>
- * <p>Utilizando os métodos {@link Layer#addNeuron(Neuron)} e {@link Layer#setNeuron(int, Neuron)} é possível o incremento de neurônios nesta camada</p>
- * <p>Utilizando os métodos {@link Layer#removeNeuron(Neuron)} e {@link Layer#removeAllNeurons()} )} é possível o decremento de neurônios nesta camada</p>
+ * <p>Através do construtor {@link Layer#Layer(int neuronsCount)} é possível a  * criação da camada
+ * já com seu numero de neurônios definidos</p>
+ *
+ * <p>Através do construtor {@link Layer#Layer(int qtdNeurons, ActivationFunction activationFunction)}
+ * é possível a criação da camada já com seu numero de neurônios definidos e qual será a função
+ * de ativação utilizada</p>
+ *
+ * <p>Utilizando os métodos {@link Layer#addNeuron(Neuron)} e {@link Layer#setNeuron(int, Neuron)}
+ * é possível o incremento de neurônios nesta camada</p>
+ *
+ * <p>Utilizando os métodos {@link Layer#removeNeuron(Neuron)} e {@link Layer#removeAllNeurons()} )}
+ * é possível o decremento de neurônios nesta camada</p>
+ *
  * <pre>
  *     //Criação das camadas
  *     Layer l1 = new Layer(numberOfNeurons);

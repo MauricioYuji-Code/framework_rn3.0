@@ -1,7 +1,4 @@
-package utils;
-
-import utils.ImageU;
-import utils.PixelCalc;
+package report;
 
 import java.io.File;
 import java.io.FileWriter;

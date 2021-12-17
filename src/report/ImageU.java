@@ -1,4 +1,4 @@
-package utils;
+package report;
 
 
 import javax.imageio.ImageIO;
@@ -8,40 +8,120 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.awt.RenderingHints;
 
-
+/**
+ * Classe responsável por plotar os gráficos gerados através dos dados coletados por
+ * {@link learning.Training} e {@link kernel.NeuralNetwork} agrupados em {@link Report}
+ *
+ * <p>O uso básido desta classe está configurado da seguinte maneira: O {@link learning.Training} realiza
+ * seus métodos de treinamento. A cada nova iteração, ele acumula em uma {@code String} o estado atual
+ * das {@link kernel.Layer Layers}, {@link kernel.Neuron Neurons} e {@link kernel.Connection Connections} e
+ * a variação de erros e acertos em um {@code Array} inteiro</p>
+ *
+ * <p>Na sequência, a classe {@link Report} concentra estes dados para tanto formatar a saida da
+ * {@code String} para {@code html} como chamar o construtor de {@code ImageU} passando como parâmetro
+ * um {@link PixelCalc} e o {@code Array} acumulado em {@link Report} </p>
+ */
 public class ImageU {
 
-    double x0;
-    double x1;
-    double y0;
-    double y1;
+    /**
+     * Ponto x0 da imagem
+     */
+    private double x0;
+    /**
+     * Ponto y0 da imagem
+     */
+    private double y0;
+    /**
+     * Ponto x1 da imagem
+     */
+    private double x1;
+    /**
+     * Ponto y1 da imagem
+     */
+    private double y1;
 
-    double x;
-    double oix;
-    double ofx;
-    double dix;
-    double dfx;
-    double pxr;
+    /**
+     * Valor de referência para o mapeamento no eixo x
+     */
+    private double x;
+    /**
+     * Valor de origem inicial X
+     */
+    private double oix;
+    /**
+     * Valor da origem final X
+     */
+    private double ofx;
+    /**
+     * Valor do destino inicial X
+     */
+    private double dix;
+    /**
+     * Valor do destino final X
+     */
+    private double dfx;
+    /**
+     * Ponto em x a ser mapeado
+     */
+    private double pxr;
 
-    double y;
-    double oiy;
-    double ofy;
-    double diy;
-    double dfy;
-    double pyr;
+    /**
+     * Valor de referência para o mapeamento no eixo Y
+     */
+    private double y;
+    /**
+     *  Valor da origem inicial em Y
+     */
+    private double oiy;
+    /**
+     * Valor da origem final em Y
+     */
+    private double ofy;
+    /**
+     * Valor do destino inicial em Y
+     */
+    private double diy;
+    /**
+     * Valor do destino final em Y
+     */
+    private double dfy;
+    /**
+     * Valor a ser mapeado em Y
+     */
+    private double pyr;
 
+    /**
+     * Ineiro para eixo X
+     */
     int eixoX;
+    /**
+     * Inteiro para eixo Y
+     */
     int eixoY;
 
+    /**
+     * Rótulo em {@code String} para o eixo X
+     */
     String xLabel;
+    /**
+     * Coordenada horizontal para {@code xLabel}
+     */
     double w = 1;
 
+    /**
+     * Rótulo em {@code String} para o eixo Y
+     */
     String yLabel;
+    /**
+     * Coordenada vertical para o {@code yLabel}
+     */
     int z = 1;
 
+    /**
+     * Valor d
+     */
     double porcentagem;
 
     BufferedImage report;

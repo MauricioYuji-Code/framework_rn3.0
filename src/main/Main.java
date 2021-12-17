@@ -4,7 +4,6 @@ import activationfunctions.Sigmoid;
 import activationfunctions.Step;
 import kernel.*;
 import network.mnist.*;
-import utils.Report;
 
 public class Main {
 
