@@ -1,6 +1,6 @@
 package network.mnist;
 
-import learning.InputSamples;
+import operations.InputSamples;
 
 import java.util.ArrayList;
 

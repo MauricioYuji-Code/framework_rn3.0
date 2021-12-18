@@ -1,6 +1,6 @@
 package kernel;
 
-import learning.Training;
+import operations.TrainingNetwork;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -266,7 +266,7 @@ public class NeuralNetwork implements Serializable {
      * Realização do treinamento
      */
     public void training() {
-        Training training = new Training(this);
+//        TrainingNetwork trainingNetwork = new TrainingNetwork(this);
     }
 
     /**
